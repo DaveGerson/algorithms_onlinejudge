@@ -1,7 +1,3 @@
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
-
 /**
  * Created by gersonda on 12/25/2014.
  */
@@ -11,15 +7,14 @@ public class buysellstock {
     public static void main(String[] args) {
 
         int[] input;
-        input = new int[5];
+        input = new int[2];
 
-        input[0] = 2;
-        input[1] = 1;
-        input[2] = 2;
-        input[3] = 0;
-        input[4] = 1;
+        input[0] = 1;
+        input[1] = 2;
+
 
         maxProfit(input);
+        System.out.print("Val equals");
         System.out.print(maxProfit(input));
     }
 
@@ -36,9 +31,11 @@ public class buysellstock {
 
 
         int lifo = 0;
-        Stack maxStack = new Stack();
+        int[] maxStack;
+        maxStack = new int[numlen];
         int fifo = 0;
-        Queue<Integer> minQueue = new LinkedList<Integer>();
+        int[] minQueue;
+        minQueue = new int[numlen];
 
 
         if (numlen == 1) {
@@ -54,7 +51,7 @@ public class buysellstock {
                 if (lifo > maxnum) {
                     maxnum = lifo;
                 }
-                maxStack.push(maxnum);
+                maxStack[numlen - 1 - i] = (maxnum);
 
                 fifo = prices[i];
                 if (i == 0) {
@@ -63,13 +60,13 @@ public class buysellstock {
                 if (fifo < minnum) {
                     minnum = fifo;
                 }
-                minQueue.add(maxnum);
+                minQueue[i]= minnum;
             }
 
 
             for (int i = 0; i < numlen; i++) {
-                curmin = ((Integer) minQueue.remove()).intValue();
-                curmax = ((Integer) maxStack.pop()).intValue();
+                curmin = minQueue[i];
+                curmax = maxStack[i];
                 if (maxProf < curmax - curmin) {
                     maxProf = curmax - curmin;
                 }
